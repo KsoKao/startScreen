@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap");
 body {
   margin: 0;
-  color: rgb(10, 10, 12);
+  color: rgb(201, 218, 197);
+  font-family: "Montserrat";
 }
 
 .bgVideo {
@@ -22,10 +24,34 @@ main {
   justify-content: center;
   align-items: center;
 }
+main .newQuotes {
+  display: none;
+}
 
 .time {
-  font-size: 60px;
-  border: 10px inset blue;
+  font-size: 45px;
+  border: 8px groove rgb(179, 213, 172);
+  padding: 28px;
+  border-radius: 9999px;
+  box-shadow: 2px 3px 10px 2px rgb(179, 213, 172);
+}
+
+.quotes {
+  margin-top: 40px;
+  position: relative;
+}
+.quotes .quotesAddBtn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+}
+.quotes:hover .quotesAddBtn {
+  display: inline-block;
+}
+.quotes .quotesMsg {
+  font-size: 28px;
 }
 
 /*# sourceMappingURL=style.css.map */
