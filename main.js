@@ -9,7 +9,7 @@ function getTime() {
   const minutes = String(newDate.getMinutes()).padStart(2, "0");
   const seconds = String(newDate.getSeconds()).padStart(2, "0");
 
-  //   time.innerText = hours + ":" + minutes + ":" + seconds;
+  // time.innerText = hours + ":" + minutes + ":" + seconds;
   time.innerText = `${hours}:${minutes}:${seconds}`;
 }
 
@@ -24,20 +24,21 @@ function getQuotes() {
     localStorage.setItem(
       QUOTES,
       JSON.stringify([
-        "매일 화이팅!",
-        "힘들어도 시간은 흐른다",
-        "열심히 하자!",
-        "성공하는 그날까지!!",
-      ]) ///stringify : 문자열화
+        "열심히 살지맙시다.",
+        "그래도 열심히 살아야지.",
+        "열심히 살면 뭐해~",
+        "열심히 살면 반드시 빛이 온다.",
+      ])
     );
 
     savedQuotes = localStorage.getItem(QUOTES);
   }
+
   let quotesArray = JSON.parse(savedQuotes);
 
   quotesMsg.innerText =
     quotesArray[Math.floor(Math.random() * quotesArray.length)];
-} /// length : 문자열 길이
+}
 
 getQuotes();
 
@@ -53,7 +54,7 @@ function onClickRegist() {
   const newQuotesInput = document.querySelector(".newQuotesInput");
 
   if (!newQuotesInput.value) {
-    return; //반환
+    return;
   }
 
   let savedQuotes = localStorage.getItem(QUOTES);
@@ -65,4 +66,68 @@ function onClickRegist() {
 
   quotesMsg.innerHTML = `<span style="color:red;">${newQuotesInput.value}</span>`;
   newQuotes.style.display = "none";
+  newQuotesInput.value = "";
+}
+
+// const a = {
+//   question: "질문입니다.",
+// };
+
+// const b = {
+//   question: question,
+// };
+
+// const c = {
+//   question,
+// };
+
+let isLoading = false;
+
+async function onClickSearch() {
+  const searchInput = document.querySelector(".searchInput");
+  const searchResult = document.querySelector(".searchResult");
+
+  if (!searchInput.value) return;
+  if (isLoading) return;
+
+  isLoading = true;
+  const question = searchInput.value;
+  searchInput.value = "검색 중 입니다... 잠시만 기다려주세요.";
+
+  console.log("챗 지피티 동작중");
+
+  // 프론트엔드에서 백엔드
+  const response = await axios.post(
+    "https://holy-fire-2749.fly.dev/chat",
+    {
+      question,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer BLOCKCHAINSCHOOL3",
+      },
+    }
+  );
+
+  if (response.status === 200) {
+    searchResult.style.display = "inline";
+    searchResult.innerText = response.data.choices[0].message.content;
+  }
+
+  searchInput.value = "";
+  isLoading = false;
+}
+
+function onClickToggle(value) {
+  const nft = document.querySelector(".nft");
+  const nftView = document.querySelector(".nftView");
+
+  if (value) {
+    nft.style.display = "inline-block";
+    nftView.style.display = "none";
+  } else {
+    nft.style.display = "none";
+    nftView.style.display = "inline-block";
+  }
 }
